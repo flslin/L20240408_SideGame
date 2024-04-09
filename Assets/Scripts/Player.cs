@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
 
     [Header("Dash info")]
     [SerializeField] private float dashDuration;
-    [SerializeField] private float dashTime;
+     private float dashTime;
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashCooldown;
-    [SerializeField] private float dashCooldownTimer;
+    private float dashCooldownTimer;
 
     private float xInput;
     private int facingDir = 1;
@@ -50,8 +50,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer < 0)
         {
-            dashCooldownTimer = dashCooldown;
-            dashTime = dashDuration;
+            DashAbility();
         }
 
         if (dashTime > 0)
@@ -63,6 +62,12 @@ public class Player : MonoBehaviour
         FlipController(); // 방향 회전
 
         AinmatorController(); // 애니메이션
+    }
+
+    private void DashAbility()
+    {
+        dashCooldownTimer = dashCooldown;
+        dashTime = dashDuration;
     }
 
     private void CollisionChecks()
