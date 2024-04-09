@@ -10,6 +10,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
 
+    [Header("Dash info")]
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashTime;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashCooldown;
+    [SerializeField] private float dashCooldownTimer;
+
     private float xInput;
     private int facingDir = 1;
     private bool facingRight = false;
@@ -38,6 +45,21 @@ public class Player : MonoBehaviour
 
         CollisionChecks(); // 땅에 닿았는지 체크
 
+        dashTime -= Time.deltaTime;
+        dashCooldownTimer -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer < 0)
+        {
+            dashCooldownTimer = dashCooldown;
+            dashTime = dashDuration;
+        }
+
+        if (dashTime > 0)
+        {
+            Debug.Log("dash");
+        }
+
+
         FlipController(); // 방향 회전
 
         AinmatorController(); // 애니메이션
@@ -60,12 +82,20 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        if (dashTime > 0)
+        {
+            rb.velocity = new Vector2(xInput * dashSpeed, /*rb.velocity.y*/0);
+        }
+        else
+        {
+            rb.velocity = new Vector3(xInput * moveSpeed, rb.velocity.y);
+        }
+
     }
 
     private void Jump()
     {
-        if(isGround)
+        if (isGround)
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
@@ -77,6 +107,8 @@ public class Player : MonoBehaviour
 
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isGround", isGround);
+
+        anim.SetBool("isDash", dashTime > 0);
     }
 
     private void Flip()
