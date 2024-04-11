@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    private Rigidbody2D rb;
-    public Animator anim;
-
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
 
@@ -18,13 +15,6 @@ public class Player : MonoBehaviour
     private float dashCooldownTimer;
 
     private float xInput;
-    private int facingDir = 1;
-    private bool facingRight = false;
-
-    [Header("Collision info")]
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private LayerMask whatIsGround;
-    private bool isGround;
 
     [Header("Attack info")]
     [SerializeField]private float comboTime = .3f;
@@ -36,17 +26,20 @@ public class Player : MonoBehaviour
     //private bool isMoving; // 함수 내에서만 사용하므로 지역으로 선언
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         // 캐싱
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>(); // 상속으로 변경
         //anim = GetComponentInChildren<Animator>(); // 자식 컴포넌트를 가져오는것
         //rb.velocity = new Vector2 (5, rb.velocity.y);
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+        
         Movement(); // 움직임
 
         CheckInput(); // 입력 체크
@@ -82,10 +75,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CollisionChecks()
-    {
-        isGround = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-    }
+    
 
     private void CheckInput()
     {
@@ -154,12 +144,7 @@ public class Player : MonoBehaviour
         anim.SetInteger("comboCounter", comboCounter);
     }
 
-    private void Flip()
-    {
-        facingDir = facingDir * -1;
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
-    }
+    
 
     private void FlipController()
     {
@@ -171,10 +156,5 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
     }
 }

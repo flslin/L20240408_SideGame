@@ -2,16 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shape : MonoBehaviour
+public class Circle : Shape
 {
-    public string shapeName;
-    public Rigidbody2D body;
-    public Vector2 velocity;
-
     // Start is called before the first frame update
-    public virtual void Start()
+    public override void Start()
     {
-        Debug.Log("도형의 이름은 = " + shapeName);
+        base.Start();
     }
 
     // Update is called once per frame
