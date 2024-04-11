@@ -25,6 +25,14 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
     private bool isGround;
+
+    [Header("Attack info")]
+    [SerializeField]private float comboTime = .3f;
+    private float comboTimeWindow;
+
+    private bool isAttack;
+    private int comboCounter;
+
     //private bool isMoving; // 함수 내에서만 사용하므로 지역으로 선언
 
     // Start is called before the first frame update
@@ -48,26 +56,30 @@ public class Player : MonoBehaviour
         dashTime -= Time.deltaTime;
         dashCooldownTimer -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer < 0)
-        {
-            DashAbility();
-        }
-
-        if (dashTime > 0)
-        {
-            Debug.Log("dash");
-        }
-
+        comboTimeWindow -= Time.deltaTime;
+        
 
         FlipController(); // 방향 회전
 
         AinmatorController(); // 애니메이션
     }
 
+    public void AttackOver()
+    {
+        isAttack = false;
+        comboCounter++;
+
+        if (comboCounter > 2)
+            comboCounter = 0;
+    }
+
     private void DashAbility()
     {
+        if (dashCooldownTimer < 0 && !isAttack)
+        {
         dashCooldownTimer = dashCooldown;
         dashTime = dashDuration;
+        }
     }
 
     private void CollisionChecks()
@@ -83,11 +95,35 @@ public class Player : MonoBehaviour
             Debug.Log("Jump");
             Jump();
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DashAbility();
+        }
+
+        //if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            StartAttackEvent();
+        }
+    }
+
+    private void StartAttackEvent()
+    {
+        if (comboTimeWindow < 0)
+            comboCounter = 0;
+
+        isAttack = true;
+        comboTimeWindow = comboTime;
     }
 
     private void Movement()
     {
-        if (dashTime > 0)
+        if(isAttack)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        else if (dashTime > 0)
         {
             rb.velocity = new Vector2(xInput * dashSpeed, /*rb.velocity.y*/0);
         }
@@ -95,7 +131,6 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector3(xInput * moveSpeed, rb.velocity.y);
         }
-
     }
 
     private void Jump()
@@ -114,6 +149,9 @@ public class Player : MonoBehaviour
         anim.SetBool("isGround", isGround);
 
         anim.SetBool("isDash", dashTime > 0);
+
+        anim.SetBool("isAttack", isAttack);
+        anim.SetInteger("comboCounter", comboCounter);
     }
 
     private void Flip()

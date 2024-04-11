@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 178946208}
   - component: {fileID: 178946209}
   - component: {fileID: 178946210}
+  - component: {fileID: 178946211}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -229,6 +230,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &178946211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178946207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53e5349cbc813a642adf0419df1e228a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &463804958
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,8 +321,8 @@ Transform:
   m_GameObject: {fileID: 463804958}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 1}
+  m_LocalPosition: {x: 0.1506, y: -2.5434, z: 0.0352}
+  m_LocalScale: {x: 24.45624, y: 0.815208, z: 0.815208}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -575,8 +588,8 @@ Transform:
   m_GameObject: {fileID: 583939667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 15.51, y: -1.4, z: 0}
-  m_LocalScale: {x: 1.1684777, y: 4.502917, z: 0.95581}
+  m_LocalPosition: {x: 12.7944, y: -1.2391, z: 0.0352}
+  m_LocalScale: {x: 0.9525523, y: 3.670814, z: 0.779184}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -705,8 +718,8 @@ Transform:
   m_GameObject: {fileID: 1687972147}
   serializedVersion: 2
   m_LocalRotation: {x: -0.007890617, y: 0.0037312063, z: 0.3826723, w: 0.92384297}
-  m_LocalPosition: {x: -15.83, y: -1.42, z: 0.22}
-  m_LocalScale: {x: 1.1684777, y: 4.502917, z: 0.95581}
+  m_LocalPosition: {x: -12.7541, y: -1.2554, z: 0.2145}
+  m_LocalScale: {x: 0.9525523, y: 3.670814, z: 0.779184}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -789,14 +802,13 @@ MonoBehaviour:
   moveSpeed: 7
   jumpForce: 5
   dashDuration: 0.2
-  dashTime: 0
   dashSpeed: 20
   dashCooldown: 1
-  dashCooldownTimer: 0
   groundCheckDistance: 1.4
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  comboTime: 1
 --- !u!70 &1762282925
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
