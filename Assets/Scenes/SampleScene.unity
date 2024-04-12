@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 178946209}
   - component: {fileID: 178946210}
   - component: {fileID: 178946211}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 671762646}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,6 +1078,10 @@ MonoBehaviour:
   wallCheck: {fileID: 1835211679}
   wallCheckDistance: 0.7
   moveSpeed: 1
+  playerCheckDistance: 2
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!70 &887069739
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1328,7 +1332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1672284244}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,9 +1496,9 @@ GameObject:
   - component: {fileID: 1762282920}
   - component: {fileID: 1762282924}
   - component: {fileID: 1762282925}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
